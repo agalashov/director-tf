@@ -1,6 +1,11 @@
 import pathlib
 import sys
 import warnings
+import glfw
+import os
+
+# Make the Mujoco backend to be glfw
+os.environ['MUJOCO_GL'] = 'glfw'
 
 warnings.filterwarnings('ignore', '.*box bound precision lowered.*')
 warnings.filterwarnings('ignore', '.*using stateful random seeds*')

@@ -81,7 +81,11 @@ def symlog(x):
 
 
 def symexp(x):
-  return tf.sign(x) * (tf.math.exp(tf.abs(x)) - 1)
+  part_a = tf.sign(x) * tf.math.exp(tf.abs(x))
+  part_b = -1 * tf.sign(x)
+  return part_a + part_b
+  
+  # return tf.sign(x) * (tf.math.exp(tf.abs(x)) - 1)
 
 
 def action_noise(action, amount, act_space):

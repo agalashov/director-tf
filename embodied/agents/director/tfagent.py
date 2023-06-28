@@ -157,9 +157,9 @@ class TFAgent(tfutils.Module, embodied.Agent):
           gpus[0], [conf] * self.config.logical_gpus)
 
     if self.config.platform == 'cpu':
-      return None
+      return None      
 
-    elif self.config.platform == 'gpu':
+    elif self.config.platform == 'gpu' or self.config.platform == 'METAL':
       assert len(gpus) >= 1, gpus
       if not self.config.logical_gpus:
         for gpu in gpus:
