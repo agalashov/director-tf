@@ -67,3 +67,8 @@ Using the Tasks
 
 The HRL environments are in `embodied/envs/pinpad.py` and
 `embodied/envs/loconav.py`.
+
+Run the agent on Ant-Maze task:
+```
+python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs loconav   --task loconav_ant_maze_m
+```
