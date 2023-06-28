@@ -81,10 +81,13 @@ def symlog(x):
 
 
 def symexp(x):
+  # New version:
+  # Rewriting due to the TF-ops incompatibility with JAX-METAL.
   part_a = tf.sign(x) * tf.math.exp(tf.abs(x))
   part_b = -1 * tf.sign(x)
   return part_a + part_b
-  
+
+  # Old version:
   # return tf.sign(x) * (tf.math.exp(tf.abs(x)) - 1)
 
 
