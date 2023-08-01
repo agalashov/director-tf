@@ -47,7 +47,8 @@ def train_with_viz(agent, env, train_replay, eval_replay, logger, args):
       for key in args.log_keys_video:
         if key == 'none':
           continue
-        metrics[f'policy_{key}'] = ep[key]
+        if key in ep:
+          metrics[f'policy_{key}'] = ep[key]
         if 'log_goal' in ep:
           if ep['image'].shape == ep['log_goal'].shape:
             goal = (255 * ep['log_goal']).astype(np.uint8)

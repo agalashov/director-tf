@@ -44,6 +44,9 @@ def load_single_env(
   elif suite == 'atari':
     from . import atari
     env = atari.Atari(task, repeat, size, gray, lives=lives, sticky=sticky)
+  elif suite == 'tabular-navigation':
+    from . import tabular_navigation
+    env = tabular_navigation.TabularNavigationEnv(task, observation_type='one-hot', p_right=1.0, max_steps=12)
   elif suite == 'crafter':
     from . import crafter
     assert repeat == 1

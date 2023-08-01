@@ -51,12 +51,15 @@ def main(argv=None):
         embodied.logger.TerminalOutput(config.filter),
         embodied.logger.JSONLOutput(actordir, 'metrics.jsonl'),
         embodied.logger.TensorBoardOutput(actordir),
+        embodied.logger.WandBOutput(config.wandb_project_name, '.*', logdir, config),
     ], multiplier=config.env.repeat * parsed.actors)
   else:
     logger = embodied.Logger(step, [
         embodied.logger.TerminalOutput(config.filter),
         embodied.logger.JSONLOutput(logdir, 'metrics.jsonl'),
         embodied.logger.TensorBoardOutput(logdir),
+        embodied.logger.WandBOutput(config.wandb_project_name, '.*', logdir, config),
+        # embodied.logger.WandBOutput(logdir.name, config),
     ], multiplier=config.env.repeat)
 
   chunk = config.replay_chunk

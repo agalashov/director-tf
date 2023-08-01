@@ -1,8 +1,10 @@
 defaults:
 
+  wandb_project_name: directorv3
+
   # Trainer
   logdir: /dev/null
-  run: train_with_viz
+  run: train
   seed: 0
   task: dummy_discrete
   env: {amount: 4, parallel: process, daemon: False, repeat: 1, size: [64, 64], camera: -1, gray: False, length: 0, discretize: 0, lives: False, sticky: True, episodic: True, restart: True, again: False, termination: False, weaker: 1.0, seed: 0}
@@ -12,7 +14,7 @@ defaults:
   replay_fixed: {prio_starts: 0.0, prio_ends: 1.0, sync: 0}
   replay_consec: {sync: 0}
   replay_prio: {prio_starts: 0.0, prio_ends: 1.0, sync: 0, fraction: 0.1, softmax: False, temp: 1.0, constant: 0.0, exponent: 0.5}
-  tf: {jit: True, platform: METAL, precision: 16, debug_nans: False, logical_gpus: 0, dist_dataset: False, dist_policy: False, tensorfloat: True, placement: False, growth: True}
+  tf: {jit: True, platform: cpu, precision: 16, debug_nans: False, logical_gpus: 0, dist_dataset: False, dist_policy: False, tensorfloat: True, placement: False, growth: True}
   eval_dir: ''
   filter: '.*'
   tbtt: 0
@@ -23,7 +25,7 @@ defaults:
     eval_every: 3e4
     eval_eps: 1
     eval_samples: 1
-    train_every: 16
+    train_every: 16.
     train_steps: 1
     train_fill: 1e4
     eval_fill: 1e4
@@ -190,6 +192,46 @@ loconav:
   decoder: {mlp_keys: '.*(joints|sensors|actuator|effectors|appendages|bodies|height|zaxis).*', cnn_keys: 'image'}
   train.log_keys_max: '^log_.*'
 
+tmaze:
+  # task_behavior: Greedy
+  task: tabular-navigation_tmaze
+  wandb_project_name: tmaze
+  train.steps: 10000
+  train.expl_until: 0
+  train.log_every: 100
+  # train.save_every: 0
+  train.train_every: 2
+  train.eval_every: 100
+  train.train_fill: 1
+  train.eval_fill: 0
+  train.sync_every: 10
+  replay_chunk: 12
+  env.amount: 1
+  env.parallel: none
+
+  rssm.deter: 128
+  rssm.stoch: 8
+  rssm.classes: 8
+
+  goal_encoder: {layers: 4, units: 512, act: elu, norm: layer, dist: onehot, outscale: 0.1, unimix: 0.0, inputs: [goal]}
+  # goal_encoder: {layers: 4, units: 512, act: elu, norm: layer, dist: onehot, outscale: 0.1, unimix: 0.0, inputs: [goal]}
+  .*\.cnn_depth: 1
+  .*\.layers: 1
+  .*\.mlp_layers: 1
+  # .*\.bins: 5
+  
+  encoder: {mlp_keys: '.*', cnn_keys: '$^'}
+  decoder: {mlp_keys: '.*', cnn_keys: '$^'}
+  .*\.units: 128
+  .*\.mlp_units: 128
+  skill_shape: [8, 8]
+  env_skill_duration: 2
+  train_skill_duration: 2
+  goal_kl: True
+  train.log_keys_video: [image]
+  # train.log_keys_video: [observation]
+  # env.tabular-navigation: {observation_type: one-hot, p_right: 1.0, max_steps: 12}
+
 debug:
 
   env.length: 100
@@ -202,7 +244,7 @@ debug:
     train_fill: 100
     eval_fill: 100
     train_steps: 1
-    train_every: 30
+    train_every: 30.
     log_timings: False
   batch_size: 8
   replay_size: 500
