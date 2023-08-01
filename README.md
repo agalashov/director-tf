@@ -55,7 +55,7 @@ Train agent:
 ```sh
 python embodied/agents/director/train.py \
   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S) \
-  --configs dmc_vision \
+  --configs dmc_proprio \
   --task dmc_walker_walk
 ```
 
@@ -72,3 +72,7 @@ Run the agent on Ant-Maze task:
 ```
 python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs loconav   --task loconav_ant_maze_m
 ```
+
+python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs pinpad   --task pinpad_four
+
+python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs tabular_navigation   --task tabular-navigation_tmaze
