@@ -193,14 +193,14 @@ loconav:
   train.log_keys_max: '^log_.*'
 
 tmaze:
-  # task_behavior: Greedy
+  task_behavior: Hierarchy # Hierarchy # Greedy
   task: tabular-navigation_tmaze
   wandb_project_name: tmaze
-  train.steps: 10000
+  train.steps: 50000
   train.expl_until: 0
   train.log_every: 100
   # train.save_every: 0
-  train.train_every: 2
+  train.train_every: 16
   train.eval_every: 100
   train.train_fill: 1
   train.eval_fill: 0
@@ -213,7 +213,9 @@ tmaze:
   rssm.stoch: 8
   rssm.classes: 8
 
+  # goal_encoder: {layers: 4, units: 512, act: elu, norm: layer, dist: onehot, outscale: 0.1, unimix: 0.0, inputs: [goal]}
   goal_encoder: {layers: 4, units: 512, act: elu, norm: layer, dist: onehot, outscale: 0.1, unimix: 0.0, inputs: [goal]}
+  # goal_encoder: {layers: 4, units: 512, act: elu, norm: layer, dist: normal, outscale: 0.1, unimix: 0.0, inputs: [goal]}
   # goal_encoder: {layers: 4, units: 512, act: elu, norm: layer, dist: onehot, outscale: 0.1, unimix: 0.0, inputs: [goal]}
   .*\.cnn_depth: 1
   .*\.layers: 1
@@ -224,9 +226,9 @@ tmaze:
   decoder: {mlp_keys: '.*', cnn_keys: '$^'}
   .*\.units: 128
   .*\.mlp_units: 128
-  skill_shape: [8, 8]
-  env_skill_duration: 2
-  train_skill_duration: 2
+  skill_shape: [1, 64]
+  env_skill_duration: 1
+  train_skill_duration: 1
   goal_kl: True
   train.log_keys_video: [image]
   # train.log_keys_video: [observation]

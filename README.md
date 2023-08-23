@@ -75,4 +75,4 @@ python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M
 
 python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs pinpad   --task pinpad_four
 
-python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs tabular_navigation   --task tabular-navigation_tmaze
+python embodied/agents/director/train.py   --logdir ~/logdir/$(date +%Y%m%d-%H%M%S)   --configs tmaze   --task tabular-navigation_tmaze
